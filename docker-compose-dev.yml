@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  
+  consul-server:
+    image: hashicorp/consul:1.18
+    container_name: consul-server
+    restart: always
+    volumes:
+     - ./server.json:/consul/config/server.json:ro
+    networks:
+      - tv-show-checker-consul
+    ports:
+      - "8500:8500"
+      - "8600:8600/tcp"
+      - "8600:8600/udp"
+    command: "agent"
+
+networks:
+  tv-show-checker-consul:
+    driver: bridge
